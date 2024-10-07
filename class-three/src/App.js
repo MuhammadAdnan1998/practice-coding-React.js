@@ -2,7 +2,7 @@ import { useState } from 'react';
 import './App.css';
 
 function App() {
-  const [count, setCount] = useState(0);
+  // const [count, setCount] = useState(0);
   const [text, setText] = useState("");
   const [list, setList] = useState([]);
   const addTodo = () => {
@@ -17,6 +17,12 @@ function App() {
 
   }
 
+  const editTodo = (index) => {
+    list[index] = prompt("Edit your todo:", list[index]);
+    setList([...list]);
+  };
+   
+
   return (
     <div className="App">
       {/* <h1>{count}</h1> */}
@@ -28,7 +34,7 @@ function App() {
           <li key={i}>{x}
             <button onClick={() => deleteTodo(i)}>Delete</button>
             {" "}
-            <button>Edit</button>
+            <button onClick={() => editTodo(i)}>Edit</button>
           </li>
         ))}
       </ul>
