@@ -8,7 +8,9 @@ function App() {
     console.log("Button Click from Parent")
   }
   return (
+
     <div>
+      <h1 className='text-[red] p-10'>Hello tailwind</h1>
       <ABButton btnClick={buttonClick} label="Register" className="abc"/>
       <ABButton label="Signup"/>
       <ABButton label="Login"/>
