@@ -4,17 +4,24 @@ import { useState, useEffect } from "react";
 
 function App() {
   const [postData, setPostData] = useState([]);
+  const [count, setCount] = useState(0);
+  const[showLoader,setShowLoader]=useState(false);
   const getApiData = () => {
+    setShowLoader(true);
     axios
-      .get("https://jsonplaceholder.typicode.com/posts")
+      .get('https://dummyjson.com/products')
       .then((res) => {
         console.log(res.data);
-        setPostData([...res.data]);
+        setPostData([...res.data.products]);
+        setShowLoader(false);
       })
       .catch((err) => {
         console.log(err);
       });
   };
+  useEffect(()=>{
+    console.log("Count Updated")
+  },[count]);
 
   const postApiData = () => {
     axios
@@ -34,6 +41,30 @@ function App() {
   useEffect(() => {
     getApiData();
   }, []);
+  const editData = ()=>{
+    axios
+    .put("https://jsonplaceholder.typicode.com/posts/1",{
+      title:"abc",
+      body:"xyz",
+    })
+    .then((res)=>{
+      console.log(res);
+    })
+    .catch((err)=>{
+      console.log(err);
+    })
+  }
+  const deleteData = ()=>{
+    axios
+    .delete("https://jsonplaceholder.typicode.com/posts/1")
+    .then(()=>{
+      console.log("DATA DELETED SUCCESSFULLY")
+    })
+    .catch((err)=>{
+      console.log(err)
+    })
+
+  }
 
   return (
     <div>
@@ -49,6 +80,7 @@ function App() {
       <div className="text-center p-5">
         <button onClick={getApiData}>Get Data</button>
         <button onClick={postApiData}>Post Data</button>
+        <button onClick={useState + 1}>Update Count{count}</button>
       </div>
       <div className="flex flex-wrap">
         {postData.map((x, i) => (
